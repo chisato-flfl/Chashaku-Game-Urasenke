@@ -42,7 +42,7 @@ function switchMode(mode) {
 function showStartScreen() {
   appContent.innerHTML = `
     <div id="start-screen">
-        <h2>裏千家へようこそ</h2>
+        <h2>裏千家熊谷社中へようこそ</h2>
         <p>茶杓（ちゃしゃく）は、抹茶をすくうための大切な道具です。<br>清める所作と、それを作った家元（お作）について学びましょう。</p>
         <button id="start-game" class="primary-btn">始める</button>
     </div>
