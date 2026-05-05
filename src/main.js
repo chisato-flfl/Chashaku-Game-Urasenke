@@ -264,6 +264,9 @@ function initEtiquetteLogic() {
   const onMove = (e) => {
     if (!isDragging) return;
     
+    // Prevent scrolling on touch devices
+    if (e.cancelable) e.preventDefault();
+    
     const clientX = e.clientX || (e.touches && e.touches[0].clientX);
     const clientY = e.clientY || (e.touches && e.touches[0].clientY);
     if (!clientX || !clientY) return;

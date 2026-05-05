@@ -256,6 +256,7 @@ h2 {
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.6);
   z-index: 10;
+  touch-action: none;
 }
 
 /* Result Screen */
