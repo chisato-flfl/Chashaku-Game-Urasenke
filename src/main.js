@@ -27,6 +27,7 @@ function setupNav() {
   document.getElementById('btn-etiquette').addEventListener('click', () => switchMode('etiquette'));
   document.getElementById('btn-quiz').addEventListener('click', () => switchMode('quiz'));
   document.getElementById('btn-mei').addEventListener('click', () => switchMode('mei'));
+  document.getElementById('btn-schedule').addEventListener('click', () => switchMode('schedule'));
 }
 
 function switchMode(mode) {
@@ -39,6 +40,8 @@ function switchMode(mode) {
     startQuiz();
   } else if (mode === 'mei') {
     startMeiQuiz();
+  } else if (mode === 'schedule') {
+    showSchedule();
   } else {
     startEtiquette();
   }
@@ -324,6 +327,59 @@ function showEtiquetteComplete() {
     </div>
   `;
   document.getElementById('etiquette-finish').addEventListener('click', () => switchMode('quiz'));
+}
+
+function showSchedule() {
+  const lessonDays = [8, 15, 16, 23, 29, 30];
+  const daysInMonth = 31;
+  const startDay = 5; // May 1st 2026 is Friday (0: Sun, 1: Mon, ..., 5: Fri)
+  
+  let calendarHtml = '';
+  // Empty slots for days before the 1st
+  for (let i = 0; i < startDay; i++) {
+    calendarHtml += '<div class="calendar-day empty"></div>';
+  }
+  
+  // Day slots
+  for (let day = 1; day <= daysInMonth; day++) {
+    const isLesson = lessonDays.includes(day);
+    calendarHtml += `
+      <div class="calendar-day ${isLesson ? 'lesson-day' : ''}">
+        <span class="day-num">${day}</span>
+        ${isLesson ? '<span class="lesson-label">お稽古</span>' : ''}
+      </div>
+    `;
+  }
+
+  appContent.innerHTML = `
+    <div class="schedule-container animate-in">
+        <h2>五月のお稽古カレンダー</h2>
+        <p>熊谷社中の五月のお稽古日は以下の通りです。</p>
+        
+        <div class="calendar-card">
+            <div class="calendar-header">
+                <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+            </div>
+            <div class="calendar-grid">
+                ${calendarHtml}
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-item">
+                <span class="info-label">場所</span>
+                <span class="info-value">熊谷社中 茶室</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">備考</span>
+                <span class="info-value">お時間は通常 14:00〜20:00 です。<br>変更がある場合は別途ご連絡いたします。</span>
+            </div>
+        </div>
+
+        <button id="back-home-from-schedule" class="primary-btn" style="margin-top: 2rem;">ホームへ戻る</button>
+    </div>
+  `;
+  document.getElementById('back-home-from-schedule').addEventListener('click', showStartScreen);
 }
 
 init();
