@@ -71,7 +71,7 @@ function showQuestion() {
         <h2>家元クイズ</h2>
         <div class="quiz-question">${master.id}代は？</div>
         <div class="options-grid">
-            ${options.map(opt => `<button class="option-btn" data-id="${opt.id}">${opt.name}</button>`).join('')}
+            ${options.map(opt => `<button class="option-btn" data-id="${opt.id}"><ruby>${opt.name}<rt>${opt.reading}</rt></ruby></button>`).join('')}
         </div>
         <div id="quiz-feedback" class="feedback"></div>
     </div>
@@ -107,7 +107,7 @@ function checkAnswer(btn, correctMaster) {
         <p class="status-text correct-text">正解です</p>
         <div class="master-card">
           <div class="master-badge">${correctMaster.id}代</div>
-          <h3>${correctMaster.name}</h3>
+          <h3><ruby>${correctMaster.name}<rt>${correctMaster.reading}</rt></ruby></h3>
           <p class="honorific">${correctMaster.honorific}</p>
           <hr>
           <p class="master-desc">${correctMaster.description || '千家茶道の発展に大きく寄与されました。'}</p>

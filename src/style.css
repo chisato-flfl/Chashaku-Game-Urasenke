@@ -147,11 +147,25 @@ p {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid var(--glass-border);
   color: white;
-  padding: 1rem;
+  padding: 1.5rem 1rem; /* Increased padding for ruby */
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ruby {
+  ruby-align: center;
+}
+
+rt {
+  font-size: 0.6em;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.2em;
+  opacity: 0.9;
 }
 
 .option-btn:hover {
