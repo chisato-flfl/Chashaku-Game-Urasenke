@@ -11,3 +11,12 @@ http://localhost:5173/
 
 Vercelで作ったURLはこちら。
 https://chashaku-game-urasenke.vercel.app/
+
+
+よくこのエラーが出てくるが、問題ないか。
+Agent terminated due to error
+You can prompt the model to try again or start a new conversation if the error persists.
+See our troubleshooting guide for more help.
+
+Dismiss
+

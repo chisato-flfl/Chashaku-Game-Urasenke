@@ -230,7 +230,7 @@ function startEtiquette() {
   appContent.innerHTML = `
     <div class="etiquette-container">
         <h2>茶杓を清める</h2>
-        <p>帛紗（ふくさ）をドラッグして、茶杓を下から上へ3回清めましょう。</p>
+        <p>帛紗（ふくさ）を「節（ふし）」に当て、<br>「櫂先（かいさき）」へ向かって3回清めましょう。</p>
         <div class="chashaku-area">
             <div id="chashaku" class="chashaku"></div>
             <div id="fukusa" class="fukusa"></div>
@@ -289,9 +289,14 @@ function initEtiquetteLogic() {
 
     if (isOverlapping) {
       chashaku.style.filter = 'brightness(1.5) drop-shadow(0 0 10px gold)';
-      if (y > 200) hasStartedFromBottom = true;
       
-      if (hasStartedFromBottom && y < 100 && cleanCount < 3) {
+      // Urasenke logic: Start from Joint (middle), end at Tip (top)
+      // Joint is at 50% (y ~ 150), Tip is at 0% (y ~ 0)
+      if (y > 140 && y < 160) {
+        hasStartedFromBottom = true; // Started from Joint
+      }
+      
+      if (hasStartedFromBottom && y < 20 && cleanCount < 3) {
         cleanCount++;
         hasStartedFromBottom = false;
         status.innerText = `清めた回数: ${cleanCount} / 3`;
