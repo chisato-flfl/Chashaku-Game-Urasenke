@@ -137,7 +137,7 @@ function startEtiquette() {
   appContent.innerHTML = `
     <div class="etiquette-container">
         <h2>茶杓を清める</h2>
-        <p>帛紗（ふくさ）をドラッグして、茶杓を上から下へ3回清めましょう。</p>
+        <p>帛紗（ふくさ）をドラッグして、茶杓を下から上へ3回清めましょう。</p>
         <div class="chashaku-area">
             <div id="chashaku" class="chashaku"></div>
             <div id="fukusa" class="fukusa"></div>
