@@ -2,7 +2,7 @@
   --primary-green: #4B5D16; /* 抹茶色 */
   --accent-gold: #D4AF37;   /* 金 */
   --bg-creme: #F5F5DC;      /* 生成り */
-  --text-dark: #2B2B2B;     /* 墨色 */
+  --text-dark: #3e2f24;     /* 濃い茶色 */
   --glass-bg: rgba(255, 255, 255, 0.15);
   --glass-border: rgba(255, 255, 255, 0.2);
 }
@@ -25,7 +25,7 @@ body {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background: url('/background.jpg') no-repeat center center/cover fixed;
+  background: var(--text-dark) url('/background.jpg') no-repeat center center/contain fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
