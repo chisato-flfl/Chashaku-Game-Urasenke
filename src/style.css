@@ -193,7 +193,7 @@ rt {
 .status-text {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem; /* Reduced from 1rem */
 }
 
 .correct-text { color: var(--accent-gold); }
@@ -204,7 +204,7 @@ rt {
   border: 1px solid var(--accent-gold);
   border-radius: 15px;
   padding: 1.5rem;
-  margin: 1.5rem 0;
+  margin: 1rem 0; /* Reduced from 1.5rem 0 */
   text-align: left;
   position: relative;
 }
