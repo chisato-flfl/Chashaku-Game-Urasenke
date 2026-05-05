@@ -271,7 +271,37 @@ h2 {
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.6);
   z-index: 10;
-  touch-action: none;
+.demo-mode .fukusa {
+  left: calc(50% - 40px);
+  pointer-events: none;
+}
+
+.step-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--accent-gold);
+  color: var(--text-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.procedure-info {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+}
+
+#procedure-text {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent-gold);
 }
 
 /* Result Screen */

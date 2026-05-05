@@ -228,114 +228,83 @@ function showResult(type) {
 // --- Etiquette Mode ---
 function startEtiquette() {
   appContent.innerHTML = `
-    <div class="etiquette-container">
-        <h2>茶杓を清める</h2>
-        <p>帛紗（ふくさ）を「節（ふし）」に当て、<br>「櫂先（かいさき）」へ向かって3回清めましょう。</p>
-        <div class="chashaku-area">
+    <div class="etiquette-container animate-in">
+        <h2>茶杓の清め方（裏千家）</h2>
+        <p>お稽古の前に、正しい清め方を確認しましょう。</p>
+        
+        <div class="chashaku-area demo-mode">
             <div id="chashaku" class="chashaku"></div>
-            <div id="fukusa" class="fukusa"></div>
+            <div id="fukusa-demo" class="fukusa demo-fukusa"></div>
+            <div id="step-label" class="step-badge">節に当てる</div>
         </div>
-        <div id="etiquette-status">清めた回数: 0 / 3</div>
-        <div id="etiquette-feedback"></div>
+
+        <div class="procedure-info">
+            <p id="procedure-text">1. 帛紗を四つ割りにし、茶杓の「節」に当てます。</p>
+            <div class="controls">
+                <button id="play-animation" class="primary-btn">アニメーション再生</button>
+            </div>
+        </div>
     </div>
   `;
   
-  initEtiquetteLogic();
+  document.getElementById('play-animation').addEventListener('click', playEtiquetteAnimation);
 }
 
-function initEtiquetteLogic() {
-  const fukusa = document.getElementById('fukusa');
+function playEtiquetteAnimation() {
+  const fukusa = document.getElementById('fukusa-demo');
   const chashaku = document.getElementById('chashaku');
-  const status = document.getElementById('etiquette-status');
-  const feedback = document.getElementById('etiquette-feedback');
-  let cleanCount = 0;
-  let isDragging = false;
-  let hasStartedFromBottom = false;
+  const stepLabel = document.getElementById('step-label');
+  const procText = document.getElementById('procedure-text');
+  const btn = document.getElementById('play-animation');
 
-  fukusa.style.left = 'calc(50% - 40px)';
-  fukusa.style.top = '300px';
+  btn.disabled = true;
+  let step = 0;
+  const steps = [
+    { label: "一度目：節から櫂先へ", text: "1. 節から櫂先へ、滑らせるように清めます。" },
+    { label: "二度目：同じく節から", text: "2. 二度目も同様に、節から櫂先へと清めます。" },
+    { label: "三度目：最後も丁寧に", text: "3. 三度目、最後も丁寧に節から櫂先へと清めます。" }
+  ];
 
-  const onStart = (e) => {
-    isDragging = true;
-    fukusa.style.cursor = 'grabbing';
+  function runStep() {
+    if (step >= 3) {
+      stepLabel.innerText = "完了";
+      procText.innerText = "清めが完了しました。";
+      btn.disabled = false;
+      btn.innerText = "もう一度再生";
+      return;
+    }
+
+    stepLabel.innerText = steps[step].label;
+    procText.innerText = steps[step].text;
+    
+    // Reset position
     fukusa.style.transition = 'none';
-  };
+    fukusa.style.top = '150px'; // At Joint
+    fukusa.style.opacity = '1';
 
-  const onMove = (e) => {
-    if (!isDragging) return;
-    
-    // Prevent scrolling on touch devices
-    if (e.cancelable) e.preventDefault();
-    
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-    if (!clientX || !clientY) return;
-
-    const rect = document.querySelector('.chashaku-area').getBoundingClientRect();
-    let x = clientX - rect.left - (fukusa.offsetWidth / 2);
-    let y = clientY - rect.top - (fukusa.offsetHeight / 2);
-    
-    x = Math.max(0, Math.min(x, rect.width - fukusa.offsetWidth));
-    y = Math.max(0, Math.min(y, rect.height - fukusa.offsetHeight));
-
-    fukusa.style.left = `${x}px`;
-    fukusa.style.top = `${y}px`;
-
-    const cRect = chashaku.getBoundingClientRect();
-    const fRect = fukusa.getBoundingClientRect();
-
-    const isOverlapping = fRect.right > cRect.left && fRect.left < cRect.right &&
-                         fRect.bottom > cRect.top && fRect.top < cRect.bottom;
-
-    if (isOverlapping) {
+    setTimeout(() => {
+      // Move to top
+      fukusa.style.transition = 'top 1.5s ease-in-out';
+      fukusa.style.top = '0px'; // At Tip
       chashaku.style.filter = 'brightness(1.5) drop-shadow(0 0 10px gold)';
       
-      // Urasenke logic: Start from Joint (middle), end at Tip (top)
-      // Joint is at 50% (y ~ 150), Tip is at 0% (y ~ 0)
-      if (y > 140 && y < 160) {
-        hasStartedFromBottom = true; // Started from Joint
-      }
-      
-      if (hasStartedFromBottom && y < 20 && cleanCount < 3) {
-        cleanCount++;
-        hasStartedFromBottom = false;
-        status.innerText = `清めた回数: ${cleanCount} / 3`;
+      setTimeout(() => {
+        chashaku.style.filter = 'none';
+        fukusa.style.transition = 'opacity 0.5s';
+        fukusa.style.opacity = '0';
         
-        chashaku.style.filter = 'brightness(2) drop-shadow(0 0 20px white)';
-        setTimeout(() => { chashaku.style.filter = 'none'; }, 200);
+        setTimeout(() => {
+          step++;
+          runStep();
+        }, 600);
+      }, 1600);
+    }, 500);
+  }
 
-        if (cleanCount === 3) showEtiquetteComplete();
-      }
-    } else {
-      chashaku.style.filter = 'none';
-    }
-  };
-
-  const onEnd = () => {
-    isDragging = false;
-    fukusa.style.cursor = 'grab';
-    fukusa.style.transition = 'all 0.3s';
-    hasStartedFromBottom = false;
-  };
-
-  fukusa.addEventListener('mousedown', onStart);
-  fukusa.addEventListener('touchstart', onStart, { passive: false });
-  window.addEventListener('mousemove', onMove);
-  window.addEventListener('touchmove', onMove, { passive: false });
-  window.addEventListener('mouseup', onEnd);
-  window.addEventListener('touchend', onEnd);
+  runStep();
 }
 
-function showEtiquetteComplete() {
-  const feedback = document.getElementById('etiquette-feedback');
-  feedback.innerHTML = `
-    <div class="animate-in">
-      <p style="color: var(--accent-gold); margin-top: 1rem; font-weight: bold; font-size: 1.2rem;">清めが完了しました。心が整いましたね。</p>
-      <button id="etiquette-finish" class="primary-btn" style="margin-top: 1rem;">お作の拝見へ (家元クイズ)</button>
-    </div>
-  `;
-  document.getElementById('etiquette-finish').addEventListener('click', () => switchMode('quiz'));
-}
+// Logic removed as it's now automated animation
 
 function showSchedule() {
   const lessonDays = [8, 15, 16, 23, 29, 30];
