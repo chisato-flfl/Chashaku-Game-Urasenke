@@ -1,4 +1,4 @@
-import '../data.json'; // Just for vite to track if needed, but we'll fetch it or import directly
+// Data will be fetched from public/data.json
 
 let masters = [];
 let currentMode = 'quiz'; // 'etiquette' or 'quiz'
@@ -8,11 +8,18 @@ let score = 0;
 const appContent = document.getElementById('game-content');
 
 async function init() {
-  const response = await fetch('/data.json');
-  masters = await response.json();
-  
-  setupNav();
-  showStartScreen();
+  try {
+    const response = await fetch('/data.json');
+    if (!response.ok) throw new Error('Failed to load data');
+    masters = await response.json();
+    console.log('Masters data loaded:', masters.length);
+    
+    setupNav();
+    showStartScreen();
+  } catch (error) {
+    console.error('Initialization error:', error);
+    appContent.innerHTML = `<p style="color: red;">データの読み込みに失敗しました。ページを再読み込みしてください。</p>`;
+  }
 }
 
 function setupNav() {
@@ -51,6 +58,11 @@ function startQuiz() {
 }
 
 function showQuestion() {
+  if (masters.length === 0) {
+    appContent.innerHTML = `<p>データを読み込んでいます...</p>`;
+    return;
+  }
+  
   const master = masters[Math.floor(Math.random() * masters.length)];
   const options = generateOptions(master);
 
