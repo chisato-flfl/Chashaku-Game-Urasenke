@@ -1,0 +1,13 @@
+茶杓ゲーム
+
+githubにプッシュする前に↓のURLができてしまった。
+途中で、何かをインストールしたが覚えていない・・・・。
+http://localhost:5173/
+
+
+二回目だからか、Githubにリポジトリを作成せずに、
+プッシュをお願いしたら、勝手にリポジトリを作ってくれた。
+
+
+Vercelで作ったURLはこちら。
+https://chashaku-game-urasenke.vercel.app/

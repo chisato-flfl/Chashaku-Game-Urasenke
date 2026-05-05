@@ -1,7 +1,6 @@
-// Data will be fetched from public/data.json
-
 let masters = [];
-let currentMode = 'quiz'; // 'etiquette' or 'quiz'
+let meiData = [];
+let currentMode = 'quiz'; // 'etiquette', 'quiz', or 'mei'
 let currentQuestionIndex = 0;
 let score = 0;
 
@@ -11,8 +10,10 @@ async function init() {
   try {
     const response = await fetch('/data.json');
     if (!response.ok) throw new Error('Failed to load data');
-    masters = await response.json();
-    console.log('Masters data loaded:', masters.length);
+    const data = await response.json();
+    masters = data.masters;
+    meiData = data.meiData;
+    console.log('Data loaded:', masters.length, 'masters,', meiData.length, 'mei');
     
     setupNav();
     showStartScreen();
@@ -25,15 +26,19 @@ async function init() {
 function setupNav() {
   document.getElementById('btn-etiquette').addEventListener('click', () => switchMode('etiquette'));
   document.getElementById('btn-quiz').addEventListener('click', () => switchMode('quiz'));
+  document.getElementById('btn-mei').addEventListener('click', () => switchMode('mei'));
 }
 
 function switchMode(mode) {
   currentMode = mode;
   document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-  document.getElementById(`btn-${mode}`).classList.add('active');
+  const activeBtn = document.getElementById(`btn-${mode}`);
+  if (activeBtn) activeBtn.classList.add('active');
   
   if (mode === 'quiz') {
     startQuiz();
+  } else if (mode === 'mei') {
+    startMeiQuiz();
   } else {
     startEtiquette();
   }
@@ -42,15 +47,21 @@ function switchMode(mode) {
 function showStartScreen() {
   appContent.innerHTML = `
     <div id="start-screen">
-        <h2>裏千家熊谷社中へようこそ</h2>
-        <p>茶杓（ちゃしゃく）は、抹茶をすくうための大切な道具です。<br>清める所作と、それを作った家元（お作）について学びましょう。</p>
-        <button id="start-game" class="primary-btn">始める</button>
+        <h2>裏千家 熊谷社中へようこそ</h2>
+        <p>茶杓（ちゃしゃく）は、抹茶をすくうための大切な道具です。<br>清める所作と、その歴史（家元）、そして季節の銘（めい）について学びましょう。</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <button id="start-etiquette" class="primary-btn">作法を学ぶ</button>
+          <button id="start-quiz" class="primary-btn">家元を学ぶ</button>
+          <button id="start-mei" class="primary-btn">銘を学ぶ</button>
+        </div>
     </div>
   `;
-  document.getElementById('start-game').addEventListener('click', () => switchMode('quiz'));
+  document.getElementById('start-etiquette').addEventListener('click', () => switchMode('etiquette'));
+  document.getElementById('start-quiz').addEventListener('click', () => switchMode('quiz'));
+  document.getElementById('start-mei').addEventListener('click', () => switchMode('mei'));
 }
 
-// --- Quiz Mode ---
+// --- Quiz Mode (Masters) ---
 function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
@@ -58,78 +69,157 @@ function startQuiz() {
 }
 
 function showQuestion() {
-  if (masters.length === 0) {
-    appContent.innerHTML = `<p>データを読み込んでいます...</p>`;
+  if (currentQuestionIndex >= 10) {
+    showResult('quiz');
     return;
   }
   
   const master = masters[Math.floor(Math.random() * masters.length)];
-  const options = generateOptions(master);
+  const questionType = Math.random() > 0.5 ? 'id' : 'name';
+  const options = generateOptions(masters, master, 'id');
+
+  const questionText = questionType === 'id' 
+    ? `${master.id}代目は？` 
+    : `「<ruby>${master.name}<rt>${master.reading}</rt></ruby>」は何代目？`;
 
   appContent.innerHTML = `
     <div class="quiz-container">
-        <h2>家元クイズ</h2>
-        <div class="quiz-question">${master.id}代は？</div>
+        <div class="quiz-progress">家元クイズ: 第 ${currentQuestionIndex + 1} 問 / 10</div>
+        <div class="quiz-question">${questionText}</div>
         <div class="options-grid">
-            ${options.map(opt => `<button class="option-btn" data-id="${opt.id}"><ruby>${opt.name}<rt>${opt.reading}</rt></ruby></button>`).join('')}
+            ${options.map(opt => {
+              const label = questionType === 'id' 
+                ? `<ruby>${opt.name}<rt>${opt.reading}</rt></ruby>` 
+                : `${opt.id}代`;
+              return `<button class="option-btn" data-id="${opt.id}">${label}</button>`;
+            }).join('')}
         </div>
         <div id="quiz-feedback" class="feedback"></div>
     </div>
   `;
 
   document.querySelectorAll('.option-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => checkAnswer(e.target, master));
+    btn.addEventListener('click', (e) => checkAnswer(e.currentTarget, master, 'quiz'));
   });
 }
 
-function generateOptions(correctMaster) {
-  let options = [correctMaster];
+// --- Mei Quiz Mode ---
+function startMeiQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  showMeiQuestion();
+}
+
+function showMeiQuestion() {
+  if (currentQuestionIndex >= 10) {
+    showResult('mei');
+    return;
+  }
+  
+  const mei = meiData[Math.floor(Math.random() * meiData.length)];
+  const options = generateOptions(meiData, mei, 'mei');
+
+  appContent.innerHTML = `
+    <div class="quiz-container">
+        <div class="quiz-progress">五月の銘クイズ: 第 ${currentQuestionIndex + 1} 問 / 10</div>
+        <div class="quiz-question" style="font-size: 2rem;">このヒントに合う銘は？<br><br><span style="color: var(--accent-gold);">「${mei.hint}」</span></div>
+        <div class="options-grid">
+            ${options.map(opt => `<button class="option-btn" data-mei="${opt.mei}"><ruby>${opt.mei}<rt>${opt.reading}</rt></ruby></button>`).join('')}
+        </div>
+        <div id="quiz-feedback" class="feedback"></div>
+    </div>
+  `;
+
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => checkAnswer(e.currentTarget, mei, 'mei'));
+  });
+}
+
+function generateOptions(data, correctItem, key) {
+  let options = [correctItem];
   while (options.length < 4) {
-    const randomMaster = masters[Math.floor(Math.random() * masters.length)];
-    if (!options.find(m => m.id === randomMaster.id)) {
-      options.push(randomMaster);
+    const randomItem = data[Math.floor(Math.random() * data.length)];
+    if (!options.find(m => m[key] === randomItem[key])) {
+      options.push(randomItem);
     }
   }
   return options.sort(() => Math.random() - 0.5);
 }
 
-function checkAnswer(btn, correctMaster) {
-  const selectedId = parseInt(btn.getAttribute('data-id'));
+function checkAnswer(btn, correctItem, type) {
+  const selectedValue = type === 'quiz' ? parseInt(btn.getAttribute('data-id')) : btn.getAttribute('data-mei');
+  const correctValue = type === 'quiz' ? correctItem.id : correctItem.mei;
   const feedback = document.getElementById('quiz-feedback');
   
-  // Disable all buttons after selection
   document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
 
-  if (selectedId === correctMaster.id) {
+  const isCorrect = selectedValue === correctValue;
+  if (isCorrect) {
+    score++;
     btn.classList.add('correct');
+  } else {
+    btn.classList.add('wrong');
+  }
+
+  if (type === 'quiz') {
     feedback.innerHTML = `
       <div class="result-animate animate-in">
-        <p class="status-text correct-text">正解です</p>
+        <p class="status-text ${isCorrect ? 'correct-text' : 'wrong-text'}">${isCorrect ? '正解です' : '惜しいです'}</p>
+        ${!isCorrect ? `<p>正解は <strong>${correctItem.id}代 ${correctItem.name}</strong> でした。</p>` : ''}
         <div class="master-card">
-          <div class="master-badge">${correctMaster.id}代</div>
-          <h3><ruby>${correctMaster.name}<rt>${correctMaster.reading}</rt></ruby></h3>
-          <p class="honorific">${correctMaster.honorific}</p>
+          <div class="master-badge">${correctItem.id}代</div>
+          <h3><ruby>${correctItem.name}<rt>${correctItem.reading}</rt></ruby></h3>
+          <p class="honorific">${correctItem.honorific}</p>
           <hr>
-          <p class="master-desc">${correctMaster.description || '千家茶道の発展に大きく寄与されました。'}</p>
+          <p class="master-desc">${correctItem.description || '千家茶道の発展に大きく寄与されました。'}</p>
         </div>
         <button id="next-question" class="primary-btn">次へ進む</button>
       </div>
     `;
   } else {
-    btn.classList.add('wrong');
     feedback.innerHTML = `
       <div class="result-animate animate-in">
-        <p class="status-text wrong-text">惜しいです</p>
-        <p>正解は <strong>${correctMaster.name}</strong> でした。</p>
+        <p class="status-text ${isCorrect ? 'correct-text' : 'wrong-text'}">${isCorrect ? '正解です' : '惜しいです'}</p>
+        <p>正解は <strong>${correctItem.mei}（${correctItem.reading}）</strong> です。</p>
         <div class="master-card">
-          <div class="master-badge">${correctMaster.id}代</div>
-          <p class="master-desc">${correctMaster.description || ''}</p>
+          <p class="master-desc"><strong>${correctItem.mei}</strong>: ${correctItem.hint}</p>
         </div>
         <button id="next-question" class="primary-btn">次へ進む</button>
       </div>
     `;
   }
-  document.getElementById('next-question').addEventListener('click', showQuestion);
+  
+  document.getElementById('next-question').addEventListener('click', () => {
+    currentQuestionIndex++;
+    if (type === 'quiz') showQuestion();
+    else showMeiQuestion();
+  });
+}
+
+function showResult(type) {
+  let rank = "初心者";
+  if (score === 10) rank = "皆伝";
+  else if (score >= 8) rank = "上級者";
+  else if (score >= 5) rank = "中級者";
+
+  const title = type === 'quiz' ? '家元クイズ 修了' : '五月の銘クイズ 修了';
+
+  appContent.innerHTML = `
+    <div class="result-screen animate-in">
+        <h2>${title}</h2>
+        <div class="score-display">
+            <span class="score-num">${score}</span> / 10 正解
+        </div>
+        <p class="rank-text">あなたの称号: <span class="rank-badge">${rank}</span></p>
+        <div class="result-actions">
+            <button id="restart-quiz" class="primary-btn">もう一度挑戦</button>
+            <button id="back-to-home" class="nav-btn" style="margin-top: 1rem; color: white;">ホームへ戻る</button>
+        </div>
+    </div>
+  `;
+
+  document.getElementById('restart-quiz').addEventListener('click', type === 'quiz' ? startQuiz : startMeiQuiz);
+  document.getElementById('back-to-home').addEventListener('click', showStartScreen);
 }
 
 // --- Etiquette Mode ---
@@ -157,71 +247,83 @@ function initEtiquetteLogic() {
   const feedback = document.getElementById('etiquette-feedback');
   let cleanCount = 0;
   let isDragging = false;
-  let startX = 0;
-  let startY = 0;
+  let hasStartedFromBottom = false;
 
-  fukusa.style.left = '100px';
-  fukusa.style.top = '50px';
+  fukusa.style.left = 'calc(50% - 40px)';
+  fukusa.style.top = '300px';
 
-  fukusa.addEventListener('mousedown', (e) => {
+  const onStart = (e) => {
     isDragging = true;
-    startX = e.clientX - fukusa.offsetLeft;
-    startY = e.clientY - fukusa.offsetTop;
     fukusa.style.cursor = 'grabbing';
     fukusa.style.transition = 'none';
-  });
+  };
 
-  window.addEventListener('mousemove', (e) => {
+  const onMove = (e) => {
     if (!isDragging) return;
     
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    if (!clientX || !clientY) return;
+
     const rect = document.querySelector('.chashaku-area').getBoundingClientRect();
-    let x = e.clientX - rect.left - (fukusa.offsetWidth / 2);
-    let y = e.clientY - rect.top - (fukusa.offsetHeight / 2);
+    let x = clientX - rect.left - (fukusa.offsetWidth / 2);
+    let y = clientY - rect.top - (fukusa.offsetHeight / 2);
     
-    // Boundary check
     x = Math.max(0, Math.min(x, rect.width - fukusa.offsetWidth));
     y = Math.max(0, Math.min(y, rect.height - fukusa.offsetHeight));
 
     fukusa.style.left = `${x}px`;
     fukusa.style.top = `${y}px`;
 
-    // Collision detection with chashaku
     const cRect = chashaku.getBoundingClientRect();
     const fRect = fukusa.getBoundingClientRect();
 
-    if (fRect.right > cRect.left && fRect.left < cRect.right &&
-        fRect.bottom > cRect.top && fRect.top < cRect.bottom) {
+    const isOverlapping = fRect.right > cRect.left && fRect.left < cRect.right &&
+                         fRect.bottom > cRect.top && fRect.top < cRect.bottom;
+
+    if (isOverlapping) {
       chashaku.style.filter = 'brightness(1.5) drop-shadow(0 0 10px gold)';
+      if (y > 200) hasStartedFromBottom = true;
+      
+      if (hasStartedFromBottom && y < 100 && cleanCount < 3) {
+        cleanCount++;
+        hasStartedFromBottom = false;
+        status.innerText = `清めた回数: ${cleanCount} / 3`;
+        
+        chashaku.style.filter = 'brightness(2) drop-shadow(0 0 20px white)';
+        setTimeout(() => { chashaku.style.filter = 'none'; }, 200);
+
+        if (cleanCount === 3) showEtiquetteComplete();
+      }
     } else {
       chashaku.style.filter = 'none';
     }
-  });
+  };
 
-  window.addEventListener('mouseup', () => {
-    if (!isDragging) return;
+  const onEnd = () => {
     isDragging = false;
     fukusa.style.cursor = 'grab';
     fukusa.style.transition = 'all 0.3s';
-    
-    const cRect = chashaku.getBoundingClientRect();
-    const fRect = fukusa.getBoundingClientRect();
+    hasStartedFromBottom = false;
+  };
 
-    // Check if fukusa passed over chashaku sufficiently
-    if (fRect.right > cRect.left && fRect.left < cRect.right && cleanCount < 3) {
-      cleanCount++;
-      status.innerText = `清めた回数: ${cleanCount} / 3`;
-      
-      if (cleanCount === 3) {
-        feedback.innerHTML = `
-          <div class="animate-in">
-            <p style="color: var(--accent-gold); margin-top: 1rem; font-weight: bold;">清めが完了しました。心が整いましたね。</p>
-            <button id="etiquette-finish" class="primary-btn" style="margin-top: 1rem;">お作の拝見へ</button>
-          </div>
-        `;
-        document.getElementById('etiquette-finish').addEventListener('click', () => switchMode('quiz'));
-      }
-    }
-  });
+  fukusa.addEventListener('mousedown', onStart);
+  fukusa.addEventListener('touchstart', onStart, { passive: false });
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('touchmove', onMove, { passive: false });
+  window.addEventListener('mouseup', onEnd);
+  window.addEventListener('touchend', onEnd);
+}
+
+function showEtiquetteComplete() {
+  const feedback = document.getElementById('etiquette-feedback');
+  feedback.innerHTML = `
+    <div class="animate-in">
+      <p style="color: var(--accent-gold); margin-top: 1rem; font-weight: bold; font-size: 1.2rem;">清めが完了しました。心が整いましたね。</p>
+      <button id="etiquette-finish" class="primary-btn" style="margin-top: 1rem;">お作の拝見へ (家元クイズ)</button>
+    </div>
+  `;
+  document.getElementById('etiquette-finish').addEventListener('click', () => switchMode('quiz'));
 }
 
 init();
