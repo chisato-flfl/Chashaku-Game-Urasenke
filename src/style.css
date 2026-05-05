@@ -304,8 +304,20 @@ h2 {
   h1 { font-size: 2rem; letter-spacing: 0.2rem; }
   .quiz-question { font-size: 2rem; }
   .options-grid { grid-template-columns: 1fr; }
-  .glass-panel { padding: 2rem 1.5rem; }
-  .chashaku-area { height: 350px; }
+  .glass-panel { padding: 1.5rem 1rem; }
+  .chashaku-area { height: 300px; }
+  
+  /* Calendar Mobile Adjustments */
+  .calendar-card { padding: 0.8rem; }
+  .calendar-grid { gap: 4px; }
+  .day-num { font-size: 1rem; }
+  .lesson-label { font-size: 0.5rem; display: none; } /* Hide label on very small screens, use dot instead */
+  .calendar-day.lesson-day::after {
+    width: 4px;
+    height: 4px;
+    top: 3px;
+    right: 3px;
+  }
 }
 
 /* Calendar Styles */
