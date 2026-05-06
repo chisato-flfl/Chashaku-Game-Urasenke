@@ -229,32 +229,40 @@ function showResult(type) {
 function startEtiquette() {
   appContent.innerHTML = `
     <div class="etiquette-container animate-in">
-        <h2>茶杓の清め方（裏千家）</h2>
-        <p>裏千家の公式な所作を動画で確認しましょう。</p>
+        <h2>作法の確認（裏千家）</h2>
+        <p>お稽古の前に、帛紗（ふくさ）のさばき方と茶杓の清め方を確認しましょう。</p>
         
-        <div class="video-container">
-            <iframe 
-                width="100%" 
-                height="315" 
-                src="https://www.youtube.com/embed/Eye4IJpFMZw" 
-                title="YouTube video player" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen>
-            </iframe>
+        <div class="video-section">
+            <h3 class="video-title">1. 帛紗のさばき方</h3>
+            <div class="video-container">
+                <iframe 
+                    width="100%" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/kVHSKHfkU_w" 
+                    title="帛紗のさばき方" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
 
-        <div class="procedure-info" style="margin-top: 2rem; text-align: left;">
-            <h3>確認のポイント</h3>
-            <ul style="margin-top: 1rem; padding-left: 1.5rem; line-height: 1.8;">
-                <li>帛紗を四つ割りにし、茶杓の「節」に当てます。</li>
-                <li>節から櫂先に向かって、一定の速さで清めます。</li>
-                <li>これを合計三回繰り返します。</li>
-            </ul>
+        <div class="video-section" style="margin-top: 3rem;">
+            <h3 class="video-title">2. 茶杓の清め方</h3>
+            <div class="video-container">
+                <iframe 
+                    width="100%" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/Eye4IJpFMZw" 
+                    title="茶杓の清め方" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
 
-        <button id="back-home-from-etiquette" class="primary-btn" style="margin-top: 2rem;">ホームへ戻る</button>
+        <button id="back-home-from-etiquette" class="primary-btn" style="margin-top: 3rem;">ホームへ戻る</button>
     </div>
   `;
   

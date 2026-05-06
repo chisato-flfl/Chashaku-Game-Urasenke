@@ -262,6 +262,14 @@ h2 {
   box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2);
 }
 
+.video-title {
+  color: var(--accent-gold);
+  margin-bottom: 1rem;
+  text-align: left;
+  border-left: 4px solid var(--accent-gold);
+  padding-left: 1rem;
+}
+
 .fukusa {
   width: 80px;
   height: 80px;
