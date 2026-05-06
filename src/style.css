@@ -276,11 +276,24 @@ h2 {
 }
 
 .video-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: var(--accent-gold);
   margin-bottom: 1rem;
   text-align: left;
   border-left: 4px solid var(--accent-gold);
   padding-left: 1rem;
+}
+
+.duration-badge {
+  font-size: 0.8rem;
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--accent-gold);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  font-family: monospace;
 }
 
 .fukusa {

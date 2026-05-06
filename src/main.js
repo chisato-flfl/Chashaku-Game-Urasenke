@@ -235,25 +235,25 @@ function startEtiquette() {
         <div class="video-category">
             <h2 class="category-title">準備（道具の扱い）</h2>
             <div class="video-section">
-                <h3 class="video-title">1. 帛紗のさばき方</h3>
+                <h3 class="video-title">1. 帛紗のさばき方 <span class="duration-badge">2:03</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/kVHSKHfkU_w" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="video-section">
-                <h3 class="video-title">2. 茶杓の清め方</h3>
+                <h3 class="video-title">2. 茶杓の清め方 <span class="duration-badge">3:05</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/Eye4IJpFMZw" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="video-section">
-                <h3 class="video-title">3. 茶碗の拭き方</h3>
+                <h3 class="video-title">3. 茶碗の拭き方 <span class="duration-badge">4:03</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/XWFoc9TNzeM" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="video-section">
-                <h3 class="video-title">4. 柄杓の扱い方</h3>
+                <h3 class="video-title">4. 柄杓の扱い方 <span class="duration-badge">6:18</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/a3X35nru5fM" frameborder="0" allowfullscreen></iframe>
                 </div>
@@ -263,19 +263,19 @@ function startEtiquette() {
         <div class="video-category" style="margin-top: 4rem;">
             <h2 class="category-title">客の作法（席入り・頂き方）</h2>
             <div class="video-section">
-                <h3 class="video-title">5. 席入り、床、手前座の拝見</h3>
+                <h3 class="video-title">5. 席入り・拝見 <span class="duration-badge">2:29</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/k3lNvXyKytE" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="video-section">
-                <h3 class="video-title">6. 薄茶の頂き方</h3>
+                <h3 class="video-title">6. 薄茶の頂き方 <span class="duration-badge">6:24</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/gcHH4yoVBeU" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="video-section">
-                <h3 class="video-title">7. お菓子の頂き方</h3>
+                <h3 class="video-title">7. お菓子の頂き方 <span class="duration-badge">3:45</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/N7b2WXl3rIs" frameborder="0" allowfullscreen></iframe>
                 </div>
