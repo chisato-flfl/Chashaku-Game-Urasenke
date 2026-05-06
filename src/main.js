@@ -262,6 +262,21 @@ function startEtiquette() {
             </div>
         </div>
 
+        <div class="video-section" style="margin-top: 3rem;">
+            <h3 class="video-title">3. 茶碗の拭き方</h3>
+            <div class="video-container">
+                <iframe 
+                    width="100%" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/XWFoc9TNzeM" 
+                    title="茶碗の拭き方" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
         <button id="back-home-from-etiquette" class="primary-btn" style="margin-top: 3rem;">ホームへ戻る</button>
     </div>
   `;
