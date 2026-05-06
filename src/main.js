@@ -7,14 +7,6 @@ let score = 0;
 const appContent = document.getElementById('game-content');
 
 async function init() {
-  // Password check
-  const isAuth = sessionStorage.getItem('chado_auth');
-  if (!isAuth) {
-    setupLogin();
-    return;
-  }
-  document.getElementById('login-screen').style.display = 'none';
-
   try {
     const response = await fetch('/data.json');
     if (!response.ok) throw new Error('Failed to load data');
@@ -29,35 +21,6 @@ async function init() {
     console.error('Initialization error:', error);
     appContent.innerHTML = `<p style="color: red;">データの読み込みに失敗しました。ページを再読み込みしてください。</p>`;
   }
-}
-
-function setupLogin() {
-  const loginBtn = document.getElementById('login-btn');
-  const pwdInput = document.getElementById('password-input');
-  const errorMsg = document.getElementById('login-error');
-  
-  // 正解パスワード：54321
-  const CORRECT_PWD = '54321';
-
-  const tryLogin = () => {
-    if (pwdInput.value === CORRECT_PWD) {
-      sessionStorage.setItem('chado_auth', 'true');
-      document.getElementById('login-screen').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('login-screen').style.display = 'none';
-        init();
-      }, 500);
-    } else {
-      errorMsg.style.display = 'block';
-      pwdInput.classList.add('wrong-shake');
-      setTimeout(() => pwdInput.classList.remove('wrong-shake'), 500);
-    }
-  };
-
-  loginBtn.addEventListener('click', tryLogin);
-  pwdInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') tryLogin();
-  });
 }
 
 function setupNav() {
