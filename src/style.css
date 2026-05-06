@@ -262,6 +262,19 @@ h2 {
   box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2);
 }
 
+.category-title {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+  text-align: left;
+}
+
+.video-section {
+  margin-top: 2rem;
+}
+
 .video-title {
   color: var(--accent-gold);
   margin-bottom: 1rem;

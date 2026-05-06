@@ -232,52 +232,57 @@ function startEtiquette() {
         <h2>作法の確認（裏千家）</h2>
         <p>お稽古の前に、帛紗（ふくさ）のさばき方と茶杓の清め方を確認しましょう。</p>
         
-        <div class="video-section">
-            <h3 class="video-title">1. 帛紗のさばき方</h3>
-            <div class="video-container">
-                <iframe 
-                    width="100%" 
-                    height="315" 
-                    src="https://www.youtube.com/embed/kVHSKHfkU_w" 
-                    title="帛紗のさばき方" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
-                </iframe>
+        <div class="video-category">
+            <h2 class="category-title">準備（道具の扱い）</h2>
+            <div class="video-section">
+                <h3 class="video-title">1. 帛紗のさばき方</h3>
+                <div class="video-container">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/kVHSKHfkU_w" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-section">
+                <h3 class="video-title">2. 茶杓の清め方</h3>
+                <div class="video-container">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/Eye4IJpFMZw" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-section">
+                <h3 class="video-title">3. 茶碗の拭き方</h3>
+                <div class="video-container">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/XWFoc9TNzeM" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-section">
+                <h3 class="video-title">4. 柄杓の扱い方</h3>
+                <div class="video-container">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/a3X35nru5fM" frameborder="0" allowfullscreen></iframe>
+                </div>
             </div>
         </div>
 
-        <div class="video-section" style="margin-top: 3rem;">
-            <h3 class="video-title">2. 茶杓の清め方</h3>
-            <div class="video-container">
-                <iframe 
-                    width="100%" 
-                    height="315" 
-                    src="https://www.youtube.com/embed/Eye4IJpFMZw" 
-                    title="茶杓の清め方" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
-                </iframe>
+        <div class="video-category" style="margin-top: 4rem;">
+            <h2 class="category-title">客の作法（席入り・頂き方）</h2>
+            <div class="video-section">
+                <h3 class="video-title">5. 席入り、床、手前座の拝見</h3>
+                <div class="video-container">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/k3lNvXyKytE" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-section">
+                <h3 class="video-title">6. 薄茶の頂き方</h3>
+                <div class="video-container">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/gcHH4yoVBeU" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="video-section">
+                <h3 class="video-title">7. お菓子の頂き方</h3>
+                <div class="video-container">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/N7b2WXl3rIs" frameborder="0" allowfullscreen></iframe>
+                </div>
             </div>
         </div>
 
-        <div class="video-section" style="margin-top: 3rem;">
-            <h3 class="video-title">3. 茶碗の拭き方</h3>
-            <div class="video-container">
-                <iframe 
-                    width="100%" 
-                    height="315" 
-                    src="https://www.youtube.com/embed/XWFoc9TNzeM" 
-                    title="茶碗の拭き方" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-
-        <button id="back-home-from-etiquette" class="primary-btn" style="margin-top: 3rem;">ホームへ戻る</button>
+        <button id="back-home-from-etiquette" class="primary-btn" style="margin-top: 4rem;">ホームへ戻る</button>
     </div>
   `;
   
