@@ -51,7 +51,7 @@ function showStartScreen() {
   appContent.innerHTML = `
     <div id="start-screen">
         <h2>裏千家 熊谷社中へようこそ</h2>
-        <p>茶杓（ちゃしゃく）は、抹茶をすくうための大切な道具です。<br>清める所作と、その歴史（家元）、そして季節の銘（めい）について学びましょう。</p>
+        <p>お稽古の前に、正しい所作（動画）、歴史（家元）、そして季節の銘をチェックしましょう。</p>
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
           <button id="start-etiquette" class="primary-btn">作法を学ぶ</button>
           <button id="start-quiz" class="primary-btn">家元を学ぶ</button>
