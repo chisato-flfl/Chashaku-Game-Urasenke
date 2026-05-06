@@ -230,81 +230,38 @@ function startEtiquette() {
   appContent.innerHTML = `
     <div class="etiquette-container animate-in">
         <h2>茶杓の清め方（裏千家）</h2>
-        <p>お稽古の前に、正しい清め方を確認しましょう。</p>
+        <p>裏千家の公式な所作を動画で確認しましょう。</p>
         
-        <div class="chashaku-area demo-mode">
-            <div id="chashaku" class="chashaku"></div>
-            <div id="fukusa-demo" class="fukusa demo-fukusa"></div>
-            <div id="step-label" class="step-badge">節に当てる</div>
+        <div class="video-container">
+            <iframe 
+                width="100%" 
+                height="315" 
+                src="https://www.youtube.com/embed/Eye4IJpFMZw" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
         </div>
 
-        <div class="procedure-info">
-            <p id="procedure-text">1. 帛紗を四つ割りにし、茶杓の「節」に当てます。</p>
-            <div class="controls">
-                <button id="play-animation" class="primary-btn">アニメーション再生</button>
-            </div>
+        <div class="procedure-info" style="margin-top: 2rem; text-align: left;">
+            <h3>確認のポイント</h3>
+            <ul style="margin-top: 1rem; padding-left: 1.5rem; line-height: 1.8;">
+                <li>帛紗を四つ割りにし、茶杓の「節」に当てます。</li>
+                <li>節から櫂先に向かって、一定の速さで清めます。</li>
+                <li>これを合計三回繰り返します。</li>
+            </ul>
         </div>
+
+        <button id="back-home-from-etiquette" class="primary-btn" style="margin-top: 2rem;">ホームへ戻る</button>
     </div>
   `;
   
-  document.getElementById('play-animation').addEventListener('click', playEtiquetteAnimation);
+  document.getElementById('back-home-from-etiquette').addEventListener('click', showStartScreen);
 }
 
-function playEtiquetteAnimation() {
-  const fukusa = document.getElementById('fukusa-demo');
-  const chashaku = document.getElementById('chashaku');
-  const stepLabel = document.getElementById('step-label');
-  const procText = document.getElementById('procedure-text');
-  const btn = document.getElementById('play-animation');
-
-  btn.disabled = true;
-  let step = 0;
-  const steps = [
-    { label: "一度目：節から櫂先へ", text: "1. 節から櫂先へ、滑らせるように清めます。" },
-    { label: "二度目：同じく節から", text: "2. 二度目も同様に、節から櫂先へと清めます。" },
-    { label: "三度目：最後も丁寧に", text: "3. 三度目、最後も丁寧に節から櫂先へと清めます。" }
-  ];
-
-  function runStep() {
-    if (step >= 3) {
-      stepLabel.innerText = "完了";
-      procText.innerText = "清めが完了しました。";
-      btn.disabled = false;
-      btn.innerText = "もう一度再生";
-      return;
-    }
-
-    stepLabel.innerText = steps[step].label;
-    procText.innerText = steps[step].text;
-    
-    // Reset position
-    fukusa.style.transition = 'none';
-    fukusa.style.top = '150px'; // At Joint
-    fukusa.style.opacity = '1';
-
-    setTimeout(() => {
-      // Move to top
-      fukusa.style.transition = 'top 1.5s ease-in-out';
-      fukusa.style.top = '0px'; // At Tip
-      chashaku.style.filter = 'brightness(1.5) drop-shadow(0 0 10px gold)';
-      
-      setTimeout(() => {
-        chashaku.style.filter = 'none';
-        fukusa.style.transition = 'opacity 0.5s';
-        fukusa.style.opacity = '0';
-        
-        setTimeout(() => {
-          step++;
-          runStep();
-        }, 600);
-      }, 1600);
-    }, 500);
-  }
-
-  runStep();
-}
-
-// Logic removed as it's now automated animation
+// Previous animation logic removed
 
 function showSchedule() {
   const lessonDays = [8, 15, 16, 23, 29, 30];
