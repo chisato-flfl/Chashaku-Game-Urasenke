@@ -292,7 +292,7 @@ function startEtiquette() {
 // Previous animation logic removed
 
 function showSchedule() {
-  const lessonDays = [8, 15, 16, 23, 29, 30];
+  const lessonDays = [8, 16, 23, 29, 30];
   const daysInMonth = 31;
   const startDay = 5; // May 1st 2026 is Friday (0: Sun, 1: Mon, ..., 5: Fri)
   
