@@ -334,7 +334,7 @@ function showSchedule() {
             </div>
             <div class="info-item">
                 <span class="info-label">備考</span>
-                <span class="info-value">お時間は通常 14:00〜20:00 です。<br>変更がある場合は別途ご連絡いたします。</span>
+                <span class="info-value">お時間は通常 13:30〜17:00 です。<br>変更がある場合は別途ご連絡いたします。</span>
             </div>
         </div>
 
