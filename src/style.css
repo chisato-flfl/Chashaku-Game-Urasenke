@@ -391,6 +391,7 @@ h2 {
   
   /* Calendar Mobile Adjustments */
   .calendar-card { padding: 0.8rem; }
+  .calendar-header { gap: 4px; }
   .calendar-grid { gap: 4px; }
   .day-num { font-size: 1rem; }
   .lesson-label { font-size: 0.5rem; display: none; } /* Hide label on very small screens, use dot instead */
@@ -415,7 +416,7 @@ h2 {
 .calendar-header {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 8px;
   margin-bottom: 10px;
   font-weight: bold;
   color: var(--accent-gold);
