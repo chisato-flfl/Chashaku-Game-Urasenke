@@ -313,17 +313,48 @@ function showSchedule() {
     `;
   }
 
+  // June
+  const lessonDaysJune = []; // 6月のお稽古日は未定のため空にしています
+  const daysInMonthJune = 30;
+  const startDayJune = 1; // June 1st 2026 is Monday (1)
+  
+  let calendarHtmlJune = '';
+  for (let i = 0; i < startDayJune; i++) {
+    calendarHtmlJune += '<div class="calendar-day empty"></div>';
+  }
+  
+  for (let day = 1; day <= daysInMonthJune; day++) {
+    const isLesson = lessonDaysJune.includes(day);
+    calendarHtmlJune += `
+      <div class="calendar-day ${isLesson ? 'lesson-day' : ''}">
+        <span class="day-num">${day}</span>
+        ${isLesson ? '<span class="lesson-label">お稽古</span>' : ''}
+      </div>
+    `;
+  }
+
   appContent.innerHTML = `
     <div class="schedule-container animate-in">
-        <h2>五月のお稽古カレンダー</h2>
-        <p>熊谷社中の五月のお稽古日は以下の通りです。</p>
+        <h2>五月・六月のお稽古カレンダー</h2>
+        <p>熊谷社中のお稽古日は以下の通りです。</p>
         
+        <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;">五月</h3>
         <div class="calendar-card">
             <div class="calendar-header">
                 <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
             </div>
             <div class="calendar-grid">
                 ${calendarHtml}
+            </div>
+        </div>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 0.5rem;">六月</h3>
+        <div class="calendar-card">
+            <div class="calendar-header">
+                <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+            </div>
+            <div class="calendar-grid">
+                ${calendarHtmlJune}
             </div>
         </div>
 
