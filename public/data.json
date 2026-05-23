@@ -130,5 +130,19 @@
     { "mei": "唐衣", "reading": "からころも", "hint": "伊勢物語、かきつばたの歌に因む" },
     { "mei": "井筒", "reading": "いづつ", "hint": "世阿弥の作、杜若に関連する謡曲" },
     { "mei": "牛若丸", "reading": "うしわかまる", "hint": "五条大橋での出会いで知られる幼名" }
+  ],
+  "teaData": [
+    { "name": "松の昔", "reading": "まつのむかし", "type": "濃茶", "preference": "坐忘斎御家元御好" },
+    { "name": "翔雲", "reading": "しょううん", "type": "薄茶", "preference": "坐忘斎御家元御好" },
+    { "name": "慶知の昔", "reading": "けいちのむかし", "type": "濃茶", "preference": "鵬雲斎大宗匠御好" },
+    { "name": "喜雲", "reading": "きうん", "type": "薄茶", "preference": "鵬雲斎大宗匠御好" },
+    { "name": "松花の昔", "reading": "しょうかのむかし", "type": "濃茶", "preference": "鵬雲斎大宗匠御好" },
+    { "name": "雲鶴", "reading": "うんかく", "type": "濃茶", "preference": "鵬雲斎大宗匠御好" },
+    { "name": "金輪", "reading": "きんりん", "type": "濃茶", "preference": "裏千家一般（お稽古用など）" },
+    { "name": "和光", "reading": "わこう", "type": "薄茶", "preference": "裏千家一般（お稽古用など）" },
+    { "name": "又玄", "reading": "ゆうげん", "type": "薄茶", "preference": "裏千家一般（お稽古用など）" },
+    { "name": "千木の白", "reading": "ちぎのしろ", "type": "薄茶", "preference": "裏千家一般（お稽古用など）" },
+    { "name": "五十鈴", "reading": "いすず", "type": "薄茶", "preference": "裏千家一般（お稽古用など）" },
+    { "name": "青雲", "reading": "せいうん", "type": "薄茶", "preference": "裏千家一般（お稽古用など）" }
   ]
 }

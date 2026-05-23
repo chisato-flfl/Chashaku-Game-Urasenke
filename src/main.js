@@ -1,6 +1,7 @@
 let masters = [];
 let meiData = [];
-let currentMode = 'quiz'; // 'etiquette', 'quiz', or 'mei'
+let teaData = [];
+let currentMode = 'quiz'; // 'etiquette', 'quiz', 'mei', or 'tea'
 let currentQuestionIndex = 0;
 let score = 0;
 
@@ -13,7 +14,8 @@ async function init() {
     const data = await response.json();
     masters = data.masters;
     meiData = data.meiData;
-    console.log('Data loaded:', masters.length, 'masters,', meiData.length, 'mei');
+    teaData = data.teaData;
+    console.log('Data loaded:', masters.length, 'masters,', meiData.length, 'mei,', teaData.length, 'tea names');
     
     setupNav();
     showStartScreen();
@@ -27,6 +29,7 @@ function setupNav() {
   document.getElementById('btn-etiquette').addEventListener('click', () => switchMode('etiquette'));
   document.getElementById('btn-quiz').addEventListener('click', () => switchMode('quiz'));
   document.getElementById('btn-mei').addEventListener('click', () => switchMode('mei'));
+  document.getElementById('btn-tea').addEventListener('click', () => switchMode('tea'));
   document.getElementById('btn-schedule').addEventListener('click', () => switchMode('schedule'));
 }
 
@@ -40,6 +43,8 @@ function switchMode(mode) {
     startQuiz();
   } else if (mode === 'mei') {
     startMeiQuiz();
+  } else if (mode === 'tea') {
+    startTeaQuiz();
   } else if (mode === 'schedule') {
     showSchedule();
   } else {
@@ -56,12 +61,14 @@ function showStartScreen() {
           <button id="start-etiquette" class="primary-btn">作法を学ぶ</button>
           <button id="start-quiz" class="primary-btn">家元を学ぶ</button>
           <button id="start-mei" class="primary-btn">銘を学ぶ</button>
+          <button id="start-tea" class="primary-btn">お茶名を学ぶ</button>
         </div>
     </div>
   `;
   document.getElementById('start-etiquette').addEventListener('click', () => switchMode('etiquette'));
   document.getElementById('start-quiz').addEventListener('click', () => switchMode('quiz'));
   document.getElementById('start-mei').addEventListener('click', () => switchMode('mei'));
+  document.getElementById('start-tea').addEventListener('click', () => switchMode('tea'));
 }
 
 // --- Quiz Mode (Masters) ---
@@ -138,6 +145,39 @@ function showMeiQuestion() {
   });
 }
 
+// --- Tea Quiz Mode ---
+function startTeaQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  showTeaQuestion();
+}
+
+function showTeaQuestion() {
+  if (currentQuestionIndex >= 10) {
+    showResult('tea');
+    return;
+  }
+  
+  const tea = teaData[Math.floor(Math.random() * teaData.length)];
+  const options = generateOptions(teaData, tea, 'name');
+
+  appContent.innerHTML = `
+    <div class="quiz-container">
+        <div class="quiz-progress">お茶名クイズ: 第 ${currentQuestionIndex + 1} 問 / 10</div>
+        <div class="quiz-question" style="font-size: 2rem;">「<ruby>${tea.name}<rt>${tea.reading}</rt></ruby>」は濃茶でしょうか、薄茶でしょうか？<br><br><span style="color: var(--accent-gold); font-size: 1.2rem;">（${tea.preference}）</span></div>
+        <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
+            <button class="option-btn" data-type="濃茶">濃茶</button>
+            <button class="option-btn" data-type="薄茶">薄茶</button>
+        </div>
+        <div id="quiz-feedback" class="feedback"></div>
+    </div>
+  `;
+
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => checkAnswer(e.currentTarget, tea, 'tea'));
+  });
+}
+
 function generateOptions(data, correctItem, key) {
   let options = [correctItem];
   while (options.length < 4) {
@@ -150,8 +190,20 @@ function generateOptions(data, correctItem, key) {
 }
 
 function checkAnswer(btn, correctItem, type) {
-  const selectedValue = type === 'quiz' ? parseInt(btn.getAttribute('data-id')) : btn.getAttribute('data-mei');
-  const correctValue = type === 'quiz' ? correctItem.id : correctItem.mei;
+  let selectedValue;
+  let correctValue;
+  
+  if (type === 'quiz') {
+    selectedValue = parseInt(btn.getAttribute('data-id'));
+    correctValue = correctItem.id;
+  } else if (type === 'mei') {
+    selectedValue = btn.getAttribute('data-mei');
+    correctValue = correctItem.mei;
+  } else {
+    selectedValue = btn.getAttribute('data-type');
+    correctValue = correctItem.type;
+  }
+  
   const feedback = document.getElementById('quiz-feedback');
   
   document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
@@ -179,7 +231,7 @@ function checkAnswer(btn, correctItem, type) {
         <button id="next-question" class="primary-btn">次へ進む</button>
       </div>
     `;
-  } else {
+  } else if (type === 'mei') {
     feedback.innerHTML = `
       <div class="result-animate animate-in">
         <p class="status-text ${isCorrect ? 'correct-text' : 'wrong-text'}">${isCorrect ? '正解です' : '惜しいです'}</p>
@@ -190,12 +242,24 @@ function checkAnswer(btn, correctItem, type) {
         <button id="next-question" class="primary-btn">次へ進む</button>
       </div>
     `;
+  } else {
+    feedback.innerHTML = `
+      <div class="result-animate animate-in">
+        <p class="status-text ${isCorrect ? 'correct-text' : 'wrong-text'}">${isCorrect ? '正解です' : '惜しいです'}</p>
+        <p>正解は <strong>${correctItem.type}</strong> です。</p>
+        <div class="master-card">
+          <p class="master-desc"><strong>${correctItem.name}（${correctItem.reading}）</strong>は主に${correctItem.type}として用いられます。<br>【お好み・取扱】${correctItem.preference}</p>
+        </div>
+        <button id="next-question" class="primary-btn">次へ進む</button>
+      </div>
+    `;
   }
   
   document.getElementById('next-question').addEventListener('click', () => {
     currentQuestionIndex++;
     if (type === 'quiz') showQuestion();
-    else showMeiQuestion();
+    else if (type === 'mei') showMeiQuestion();
+    else showTeaQuestion();
   });
 }
 
@@ -205,7 +269,19 @@ function showResult(type) {
   else if (score >= 8) rank = "上級者";
   else if (score >= 5) rank = "中級者";
 
-  const title = type === 'quiz' ? '家元クイズ 修了' : '五月の銘クイズ 修了';
+  let title = 'クイズ 修了';
+  let restartFn;
+  
+  if (type === 'quiz') {
+    title = '家元クイズ 修了';
+    restartFn = startQuiz;
+  } else if (type === 'mei') {
+    title = '五月の銘クイズ 修了';
+    restartFn = startMeiQuiz;
+  } else {
+    title = 'お茶名クイズ 修了';
+    restartFn = startTeaQuiz;
+  }
 
   appContent.innerHTML = `
     <div class="result-screen animate-in">
@@ -221,7 +297,7 @@ function showResult(type) {
     </div>
   `;
 
-  document.getElementById('restart-quiz').addEventListener('click', type === 'quiz' ? startQuiz : startMeiQuiz);
+  document.getElementById('restart-quiz').addEventListener('click', restartFn);
   document.getElementById('back-to-home').addEventListener('click', showStartScreen);
 }
 
