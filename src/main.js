@@ -55,13 +55,13 @@ function switchMode(mode) {
 function showStartScreen() {
   appContent.innerHTML = `
     <div id="start-screen">
-        <h2>裏千家 熊谷社中へようこそ</h2>
-        <p>お稽古の前に、正しい所作（動画）、歴史（家元）、そして季節の銘をチェックしましょう。</p>
+        <h2><ruby>裏千家<rt>うらせんけ</rt></ruby> <ruby>熊谷<rt>くまがい</rt></ruby><ruby>社中<rt>しゃちゅう</rt></ruby>へようこそ</h2>
+        <p>お<ruby>稽古<rt>けいこ</rt></ruby>の<ruby>前<rt>まえ</rt></ruby>に、<ruby>正<rt>ただ</rt></ruby>しい<ruby>所作<rt>しょさ</rt></ruby>（<ruby>動画<rt>どうが</rt></ruby>）、<ruby>歴史<rt>れきし</rt></ruby>（<ruby>家元<rt>いえもと</rt></ruby>）、そして<ruby>季節<rt>きせつ</rt></ruby>の<ruby>銘<rt>めい</rt></ruby>をチェックしましょう。</p>
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <button id="start-etiquette" class="primary-btn">作法を学ぶ</button>
-          <button id="start-quiz" class="primary-btn">家元を学ぶ</button>
-          <button id="start-mei" class="primary-btn">銘を学ぶ</button>
-          <button id="start-tea" class="primary-btn">お茶名を学ぶ</button>
+          <button id="start-etiquette" class="primary-btn"><ruby>作法<rt>さほう</rt></ruby>を<ruby>学<rt>まな</rt></ruby>ぶ</button>
+          <button id="start-quiz" class="primary-btn"><ruby>家元<rt>いえもと</rt></ruby>を<ruby>学<rt>まな</rt></ruby>ぶ</button>
+          <button id="start-mei" class="primary-btn"><ruby>銘<rt>めい</rt></ruby>を<ruby>学<rt>まな</rt></ruby>ぶ</button>
+          <button id="start-tea" class="primary-btn">お<ruby>茶名<rt>ちゃめい</rt></ruby>を<ruby>学<rt>まな</rt></ruby>ぶ</button>
         </div>
     </div>
   `;
@@ -89,18 +89,18 @@ function showQuestion() {
   const options = generateOptions(masters, master, 'id');
 
   const questionText = questionType === 'id' 
-    ? `${master.id}代目は？` 
-    : `「<ruby>${master.name}<rt>${master.reading}</rt></ruby>」は何代目？`;
+    ? `${master.id}<ruby>代<rt>だい</rt></ruby><ruby>目<rt>め</rt></ruby>は？` 
+    : `「<ruby>${master.name}<rt>${master.reading}</rt></ruby>」は<ruby>何<rt>なん</rt></ruby><ruby>代<rt>だい</rt></ruby><ruby>目<rt>め</rt></ruby>？`;
 
   appContent.innerHTML = `
     <div class="quiz-container">
-        <div class="quiz-progress">家元クイズ: 第 ${currentQuestionIndex + 1} 問 / 10</div>
+        <div class="quiz-progress"><ruby>家元<rt>いえもと</rt></ruby>クイズ: <ruby>第<rt>だい</rt></ruby> ${currentQuestionIndex + 1} <ruby>問<rt>もん</rt></ruby> / 10</div>
         <div class="quiz-question">${questionText}</div>
         <div class="options-grid">
             ${options.map(opt => {
               const label = questionType === 'id' 
                 ? `<ruby>${opt.name}<rt>${opt.reading}</rt></ruby>` 
-                : `${opt.id}代`;
+                : `${opt.id}<ruby>代<rt>だい</rt></ruby>`;
               return `<button class="option-btn" data-id="${opt.id}">${label}</button>`;
             }).join('')}
         </div>
@@ -131,8 +131,8 @@ function showMeiQuestion() {
 
   appContent.innerHTML = `
     <div class="quiz-container">
-        <div class="quiz-progress">五月の銘クイズ: 第 ${currentQuestionIndex + 1} 問 / 10</div>
-        <div class="quiz-question" style="font-size: 2rem;">このヒントに合う銘は？<br><br><span style="color: var(--accent-gold);">「${mei.hint}」</span></div>
+        <div class="quiz-progress"><ruby>五月<rt>ごがつ</rt></ruby>の<ruby>銘<rt>めい</rt></ruby>クイズ: <ruby>第<rt>だい</rt></ruby> ${currentQuestionIndex + 1} <ruby>問<rt>もん</rt></ruby> / 10</div>
+        <div class="quiz-question" style="font-size: 2rem;">このヒントに<ruby>合<rt>あ</rt></ruby>う<ruby>銘<rt>めい</rt></ruby>は？<br><br><span style="color: var(--accent-gold);">「${mei.hint}」</span></div>
         <div class="options-grid">
             ${options.map(opt => `<button class="option-btn" data-mei="${opt.mei}"><ruby>${opt.mei}<rt>${opt.reading}</rt></ruby></button>`).join('')}
         </div>
@@ -163,11 +163,11 @@ function showTeaQuestion() {
 
   appContent.innerHTML = `
     <div class="quiz-container">
-        <div class="quiz-progress">お茶名クイズ: 第 ${currentQuestionIndex + 1} 問 / 10</div>
-        <div class="quiz-question" style="font-size: 2rem;">「<ruby>${tea.name}<rt>${tea.reading}</rt></ruby>」は濃茶でしょうか、薄茶でしょうか？<br><br><span style="color: var(--accent-gold); font-size: 1.2rem;">（${tea.preference}）</span></div>
+        <div class="quiz-progress">お<ruby>茶名<rt>ちゃめい</rt></ruby>クイズ: <ruby>第<rt>だい</rt></ruby> ${currentQuestionIndex + 1} <ruby>問<rt>もん</rt></ruby> / 10</div>
+        <div class="quiz-question" style="font-size: 2rem;">「<ruby>${tea.name}<rt>${tea.reading}</rt></ruby>」は<ruby>濃茶<rt>こいちゃ</rt></ruby>でしょうか、<ruby>薄茶<rt>うすちゃ</rt></ruby>でしょうか？<br><br><span style="color: var(--accent-gold); font-size: 1.2rem;">（${tea.preference}）</span></div>
         <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
-            <button class="option-btn" data-type="濃茶">濃茶</button>
-            <button class="option-btn" data-type="薄茶">薄茶</button>
+            <button class="option-btn" data-type="濃茶"><ruby>濃茶<rt>こいちゃ</rt></ruby></button>
+            <button class="option-btn" data-type="薄茶"><ruby>薄茶<rt>うすちゃ</rt></ruby></button>
         </div>
         <div id="quiz-feedback" class="feedback"></div>
     </div>
@@ -219,38 +219,38 @@ function checkAnswer(btn, correctItem, type) {
   if (type === 'quiz') {
     feedback.innerHTML = `
       <div class="result-animate animate-in">
-        <p class="status-text ${isCorrect ? 'correct-text' : 'wrong-text'}">${isCorrect ? '正解です' : '惜しいです'}</p>
-        ${!isCorrect ? `<p>正解は <strong>${correctItem.id}代 ${correctItem.name}</strong> でした。</p>` : ''}
+        <p class="status-text ${isCorrect ? 'correct-text' : 'wrong-text'}">${isCorrect ? '<ruby>正解<rt>せいかい</rt></ruby>です' : '<ruby>惜<rt>お</rt></ruby>しいです'}</p>
+        ${!isCorrect ? `<p><ruby>正解<rt>せいかい</rt></ruby>は <strong>${correctItem.id}<ruby>代<rt>だい</rt></ruby> ${correctItem.name}</strong> でした。</p>` : ''}
         <div class="master-card">
-          <div class="master-badge">${correctItem.id}代</div>
+          <div class="master-badge">${correctItem.id}<ruby>代<rt>だい</rt></ruby></div>
           <h3><ruby>${correctItem.name}<rt>${correctItem.reading}</rt></ruby></h3>
           <p class="honorific">${correctItem.honorific}</p>
           <hr>
-          <p class="master-desc">${correctItem.description || '千家茶道の発展に大きく寄与されました。'}</p>
+          <p class="master-desc">${correctItem.description || '<ruby>千家<rt>せんけ</rt></ruby><ruby>茶道<rt>さどう</rt></ruby>の<ruby>発展<rt>はってん</rt></ruby>に<ruby>大<rt>おお</rt></ruby>きく<ruby>寄与<rt>きよ</rt></ruby>されました。'}</p>
         </div>
-        <button id="next-question" class="primary-btn">次へ進む</button>
+        <button id="next-question" class="primary-btn"><ruby>次<rt>つぎ</rt></ruby>へ<ruby>進<rt>すす</rt></ruby>む</button>
       </div>
     `;
   } else if (type === 'mei') {
     feedback.innerHTML = `
       <div class="result-animate animate-in">
-        <p class="status-text ${isCorrect ? 'correct-text' : 'wrong-text'}">${isCorrect ? '正解です' : '惜しいです'}</p>
-        <p>正解は <strong>${correctItem.mei}（${correctItem.reading}）</strong> です。</p>
+        <p class="status-text ${isCorrect ? 'correct-text' : 'wrong-text'}">${isCorrect ? '<ruby>正解<rt>せいかい</rt></ruby>です' : '<ruby>惜<rt>お</rt></ruby>しいです'}</p>
+        <p><ruby>正解<rt>せいかい</rt></ruby>は <strong>${correctItem.mei}（${correctItem.reading}）</strong> です。</p>
         <div class="master-card">
           <p class="master-desc"><strong>${correctItem.mei}</strong>: ${correctItem.hint}</p>
         </div>
-        <button id="next-question" class="primary-btn">次へ進む</button>
+        <button id="next-question" class="primary-btn"><ruby>次<rt>つぎ</rt></ruby>へ<ruby>進<rt>すす</rt></ruby>む</button>
       </div>
     `;
   } else {
     feedback.innerHTML = `
       <div class="result-animate animate-in">
-        <p class="status-text ${isCorrect ? 'correct-text' : 'wrong-text'}">${isCorrect ? '正解です' : '惜しいです'}</p>
-        <p>正解は <strong>${correctItem.type}</strong> です。</p>
+        <p class="status-text ${isCorrect ? 'correct-text' : 'wrong-text'}">${isCorrect ? '<ruby>正解<rt>せいかい</rt></ruby>です' : '<ruby>惜<rt>お</rt></ruby>しいです'}</p>
+        <p><ruby>正解<rt>せいかい</rt></ruby>は <strong>${correctItem.type}</strong> です。</p>
         <div class="master-card">
-          <p class="master-desc"><strong>${correctItem.name}（${correctItem.reading}）</strong>は主に${correctItem.type}として用いられます。<br>【お好み・取扱】${correctItem.preference}</p>
+          <p class="master-desc"><strong>${correctItem.name}（${correctItem.reading}）</strong>は<ruby>主<rt>おも</rt></ruby>に${correctItem.type}として<ruby>用<rt>もち</rt></ruby>いられます。<br>【お<ruby>好<rt>ごの</rt></ruby>み・<ruby>取扱<rt>とりあつかい</rt></ruby>】${correctItem.preference}</p>
         </div>
-        <button id="next-question" class="primary-btn">次へ進む</button>
+        <button id="next-question" class="primary-btn"><ruby>次<rt>つぎ</rt></ruby>へ<ruby>進<rt>すす</rt></ruby>む</button>
       </div>
     `;
   }
@@ -264,22 +264,22 @@ function checkAnswer(btn, correctItem, type) {
 }
 
 function showResult(type) {
-  let rank = "初心者";
-  if (score === 10) rank = "皆伝";
-  else if (score >= 8) rank = "上級者";
-  else if (score >= 5) rank = "中級者";
+  let rank = "<ruby>初心者<rt>しょしんしゃ</rt></ruby>";
+  if (score === 10) rank = "<ruby>皆伝<rt>かいでん</rt></ruby>";
+  else if (score >= 8) rank = "<ruby>上級者<rt>じょうきゅうしゃ</rt></ruby>";
+  else if (score >= 5) rank = "<ruby>中級者<rt>ちゅうきゅうしゃ</rt></ruby>";
 
-  let title = 'クイズ 修了';
+  let title = 'クイズ <ruby>修了<rt>しゅうりょう</rt></ruby>';
   let restartFn;
   
   if (type === 'quiz') {
-    title = '家元クイズ 修了';
+    title = '<ruby>家元<rt>いえもと</rt></ruby>クイズ <ruby>修了<rt>しゅうりょう</rt></ruby>';
     restartFn = startQuiz;
   } else if (type === 'mei') {
-    title = '五月の銘クイズ 修了';
+    title = '<ruby>五月<rt>ごがつ</rt></ruby>の<ruby>銘<rt>めい</rt></ruby>クイズ <ruby>修了<rt>しゅうりょう</rt></ruby>';
     restartFn = startMeiQuiz;
   } else {
-    title = 'お茶名クイズ 修了';
+    title = 'お<ruby>茶名<rt>ちゃめい</rt></ruby>クイズ <ruby>修了<rt>しゅうりょう</rt></ruby>';
     restartFn = startTeaQuiz;
   }
 
@@ -287,12 +287,12 @@ function showResult(type) {
     <div class="result-screen animate-in">
         <h2>${title}</h2>
         <div class="score-display">
-            <span class="score-num">${score}</span> / 10 正解
+            <span class="score-num">${score}</span> / 10 <ruby>正解<rt>せいかい</rt></ruby>
         </div>
-        <p class="rank-text">あなたの称号: <span class="rank-badge">${rank}</span></p>
+        <p class="rank-text">あなたの<ruby>称号<rt>しょうごう</rt></ruby>: <span class="rank-badge">${rank}</span></p>
         <div class="result-actions">
-            <button id="restart-quiz" class="primary-btn">もう一度挑戦</button>
-            <button id="back-to-home" class="nav-btn" style="margin-top: 1rem; color: white;">ホームへ戻る</button>
+            <button id="restart-quiz" class="primary-btn">もう<ruby>一度<rt>いちど</rt></ruby><ruby>挑戦<rt>ちょうせん</rt></ruby></button>
+            <button id="back-to-home" class="nav-btn" style="margin-top: 1rem; color: white;">ホームへ<ruby>戻<rt>もど</rt></ruby>る</button>
         </div>
     </div>
   `;
@@ -305,31 +305,31 @@ function showResult(type) {
 function startEtiquette() {
   appContent.innerHTML = `
     <div class="etiquette-container animate-in">
-        <h2>作法の確認（裏千家）</h2>
-        <p>お稽古の前に、帛紗（ふくさ）のさばき方と茶杓の清め方を確認しましょう。</p>
+        <h2><ruby>作法<rt>さほう</rt></ruby>の<ruby>確認<rt>かくにん</rt></ruby>（<ruby>裏千家<rt>うらせんけ</rt></ruby>）</h2>
+        <p>お<ruby>稽古<rt>けいこ</rt></ruby>の<ruby>前<rt>まえ</rt></ruby>に、<ruby>帛紗<rt>ふくさ</rt></ruby>（ふくさ）のさばき<ruby>方<rt>かた</rt></ruby>と<ruby>茶杓<rt>ちゃしゃく</rt></ruby>の<ruby>清<rt>きよ</rt></ruby>め<ruby>方<rt>かた</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>しましょう。</p>
         
         <div class="video-category">
-            <h2 class="category-title">準備（道具の扱い）</h2>
+            <h2 class="category-title"><ruby>準備<rt>じゅんび</rt></ruby>（<ruby>道具<rt>どうぐ</rt></ruby>の<ruby>扱<rt>あつか</rt></ruby>い）</h2>
             <div class="video-section">
-                <h3 class="video-title">1. 帛紗のさばき方 <span class="duration-badge">2:03</span></h3>
+                <h3 class="video-title">1. <ruby>帛紗<rt>ふくさ</rt></ruby>のさばき<ruby>方<rt>かた</rt></ruby> <span class="duration-badge">2:03</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/kVHSKHfkU_w" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="video-section">
-                <h3 class="video-title">2. 茶杓の清め方 <span class="duration-badge">3:05</span></h3>
+                <h3 class="video-title">2. <ruby>茶杓<rt>ちゃしゃく</rt></ruby>の<ruby>清<rt>きよ</rt></ruby>め<ruby>方<rt>かた</rt></ruby> <span class="duration-badge">3:05</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/Eye4IJpFMZw" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="video-section">
-                <h3 class="video-title">3. 茶碗の拭き方 <span class="duration-badge">4:03</span></h3>
+                <h3 class="video-title">3. <ruby>茶碗<rt>ちゃわん</rt></ruby>の<ruby>拭<rt>ふ</rt></ruby>き<ruby>方<rt>かた</rt></ruby> <span class="duration-badge">4:03</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/XWFoc9TNzeM" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="video-section">
-                <h3 class="video-title">4. 柄杓の扱い方 <span class="duration-badge">6:18</span></h3>
+                <h3 class="video-title">4. <ruby>柄杓<rt>ひしゃく</rt></ruby>の<ruby>扱<rt>あつか</rt></ruby>い<ruby>方<rt>かた</rt></ruby> <span class="duration-badge">6:18</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/a3X35nru5fM" frameborder="0" allowfullscreen></iframe>
                 </div>
@@ -337,28 +337,28 @@ function startEtiquette() {
         </div>
 
         <div class="video-category" style="margin-top: 4rem;">
-            <h2 class="category-title">客の作法（席入り・頂き方）</h2>
+            <h2 class="category-title"><ruby>客<rt>きゃく</rt></ruby>の<ruby>作法<rt>さほう</rt></ruby>（<ruby>席入<rt>せきい</rt></ruby>り・<ruby>頂<rt>いただ</rt></ruby>き<ruby>方<rt>かた</rt></ruby>）</h2>
             <div class="video-section">
-                <h3 class="video-title">5. 席入り・拝見 <span class="duration-badge">2:29</span></h3>
+                <h3 class="video-title">5. <ruby>席入<rt>せきい</rt></ruby>り・<ruby>拝見<rt>はいけん</rt></ruby> <span class="duration-badge">2:29</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/k3lNvXyKytE" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="video-section">
-                <h3 class="video-title">6. 薄茶の頂き方 <span class="duration-badge">6:24</span></h3>
+                <h3 class="video-title">6. <ruby>薄茶<rt>うすちゃ</rt></ruby>の<ruby>頂<rt>いただ</rt></ruby>き<ruby>方<rt>かた</rt></ruby> <span class="duration-badge">6:24</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/gcHH4yoVBeU" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="video-section">
-                <h3 class="video-title">7. お菓子の頂き方 <span class="duration-badge">3:45</span></h3>
+                <h3 class="video-title">7. お<ruby>菓子<rt>かし</rt></ruby>の<ruby>頂<rt>いただ</rt></ruby>き<ruby>方<rt>かた</rt></ruby> <span class="duration-badge">3:45</span></h3>
                 <div class="video-container">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/N7b2WXl3rIs" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
 
-        <button id="back-home-from-etiquette" class="primary-btn" style="margin-top: 4rem;">ホームへ戻る</button>
+        <button id="back-home-from-etiquette" class="primary-btn" style="margin-top: 4rem;">ホームへ<ruby>戻<rt>もど</rt></ruby>る</button>
     </div>
   `;
   
@@ -384,7 +384,7 @@ function showSchedule() {
     calendarHtml += `
       <div class="calendar-day ${isLesson ? 'lesson-day' : ''}">
         <span class="day-num">${day}</span>
-        ${isLesson ? '<span class="lesson-label">お稽古</span>' : ''}
+        ${isLesson ? '<span class="lesson-label">お<ruby>稽古<rt>けいこ</rt></ruby></span>' : ''}
       </div>
     `;
   }
@@ -404,30 +404,30 @@ function showSchedule() {
     calendarHtmlJune += `
       <div class="calendar-day ${isLesson ? 'lesson-day' : ''}">
         <span class="day-num">${day}</span>
-        ${isLesson ? '<span class="lesson-label">お稽古</span>' : ''}
+        ${isLesson ? '<span class="lesson-label">お<ruby>稽古<rt>けいこ</rt></ruby></span>' : ''}
       </div>
     `;
   }
 
   appContent.innerHTML = `
     <div class="schedule-container animate-in">
-        <h2>五月・六月のお稽古カレンダー</h2>
-        <p>熊谷社中のお稽古日は以下の通りです。</p>
+        <h2><ruby>五月<rt>ごがつ</rt></ruby>・<ruby>六月<rt>ろくがつ</rt></ruby>のお<ruby>稽古<rt>けいこ</rt></ruby>カレンダー</h2>
+        <p><ruby>熊谷<rt>くまがい</rt></ruby><ruby>社中<rt>しゃちゅう</rt></ruby>のお<ruby>稽古<rt>けいこ</rt></ruby><ruby>日<rt>び</rt></ruby>は<ruby>以下<rt>いか</rt></ruby>の<ruby>通<rt>とお</rt></ruby>りです。</p>
         
-        <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;">五月</h3>
+        <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;"><ruby>五月<rt>ごがつ</rt></ruby></h3>
         <div class="calendar-card">
             <div class="calendar-header">
-                <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+                <div><ruby>日<rt>にち</rt></ruby></div><div><ruby>月<rt>げつ</rt></ruby></div><div><ruby>火<rt>か</rt></ruby></div><div><ruby>水<rt>すい</rt></ruby></div><div><ruby>木<rt>もく</rt></ruby></div><div><ruby>金<rt>きん</rt></ruby></div><div><ruby>土<rt>ど</rt></ruby></div>
             </div>
             <div class="calendar-grid">
                 ${calendarHtml}
             </div>
         </div>
 
-        <h3 style="margin-top: 2rem; margin-bottom: 0.5rem;">六月</h3>
+        <h3 style="margin-top: 2rem; margin-bottom: 0.5rem;"><ruby>六月<rt>ろくがつ</rt></ruby></h3>
         <div class="calendar-card">
             <div class="calendar-header">
-                <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+                <div><ruby>日<rt>にち</rt></ruby></div><div><ruby>月<rt>げつ</rt></ruby></div><div><ruby>火<rt>か</rt></ruby></div><div><ruby>水<rt>すい</rt></ruby></div><div><ruby>木<rt>もく</rt></ruby></div><div><ruby>金<rt>きん</rt></ruby></div><div><ruby>土<rt>ど</rt></ruby></div>
             </div>
             <div class="calendar-grid">
                 ${calendarHtmlJune}
@@ -436,16 +436,16 @@ function showSchedule() {
 
         <div class="info-section">
             <div class="info-item">
-                <span class="info-label">場所</span>
-                <span class="info-value">熊谷社中 茶室</span>
+                <span class="info-label"><ruby>場所<rt>ばしょ</rt></ruby></span>
+                <span class="info-value"><ruby>熊谷<rt>くまがい</rt></ruby><ruby>社中<rt>しゃちゅう</rt></ruby> <ruby>茶室<rt>ちゃしつ</rt></ruby></span>
             </div>
             <div class="info-item">
-                <span class="info-label">備考</span>
-                <span class="info-value">お時間は通常 13:30〜17:00 です。<br>変更がある場合は別途ご連絡いたします。</span>
+                <span class="info-label"><ruby>備考<rt>びこう</rt></ruby></span>
+                <span class="info-value">お<ruby>時間<rt>じかん</rt></ruby>は<ruby>通常<rt>つうじょう</rt></ruby> 13:30〜17:00 です。<br><ruby>変更<rt>へんこう</rt></ruby>がある<ruby>場合<rt>ばあい</rt></ruby>は<ruby>別途<rt>べっと</rt></ruby>ご<ruby>連絡<rt>れんらく</rt></ruby>いたします。</span>
             </div>
         </div>
 
-        <button id="back-home-from-schedule" class="primary-btn" style="margin-top: 2rem;">ホームへ戻る</button>
+        <button id="back-home-from-schedule" class="primary-btn" style="margin-top: 2rem;">ホームへ<ruby>戻<rt>もど</rt></ruby>る</button>
     </div>
   `;
   document.getElementById('back-home-from-schedule').addEventListener('click', showStartScreen);
