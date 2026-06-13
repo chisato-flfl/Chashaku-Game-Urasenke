@@ -411,7 +411,7 @@ function showSchedule() {
 
   appContent.innerHTML = `
     <div class="schedule-container animate-in">
-        <h2><ruby>六月<rt>ろくがつ</rt></ruby>・<ruby>五月<rt>ごがつ</rt></ruby>のお<ruby>稽古<rt>けいこ</rt></ruby>カレンダー</h2>
+        <h2>お<ruby>稽古<rt>けいこ</rt></ruby>カレンダー</h2>
         <p><ruby>熊谷<rt>くまがい</rt></ruby><ruby>社中<rt>しゃちゅう</rt></ruby>のお<ruby>稽古<rt>けいこ</rt></ruby><ruby>日<rt>び</rt></ruby>は<ruby>以下<rt>いか</rt></ruby>の<ruby>通<rt>とお</rt></ruby>りです。</p>
         
         <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;"><ruby>六月<rt>ろくがつ</rt></ruby></h3>
