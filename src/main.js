@@ -390,7 +390,7 @@ function showSchedule() {
   }
 
   // June
-  const lessonDaysJune = []; // 6月のお稽古日は未定のため空にしています
+  const lessonDaysJune = [5, 6, 13, 19, 26, 27];
   const daysInMonthJune = 30;
   const startDayJune = 1; // June 1st 2026 is Monday (1)
   
@@ -411,26 +411,26 @@ function showSchedule() {
 
   appContent.innerHTML = `
     <div class="schedule-container animate-in">
-        <h2><ruby>五月<rt>ごがつ</rt></ruby>・<ruby>六月<rt>ろくがつ</rt></ruby>のお<ruby>稽古<rt>けいこ</rt></ruby>カレンダー</h2>
+        <h2><ruby>六月<rt>ろくがつ</rt></ruby>・<ruby>五月<rt>ごがつ</rt></ruby>のお<ruby>稽古<rt>けいこ</rt></ruby>カレンダー</h2>
         <p><ruby>熊谷<rt>くまがい</rt></ruby><ruby>社中<rt>しゃちゅう</rt></ruby>のお<ruby>稽古<rt>けいこ</rt></ruby><ruby>日<rt>び</rt></ruby>は<ruby>以下<rt>いか</rt></ruby>の<ruby>通<rt>とお</rt></ruby>りです。</p>
         
-        <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;"><ruby>五月<rt>ごがつ</rt></ruby></h3>
-        <div class="calendar-card">
-            <div class="calendar-header">
-                <div><ruby>日<rt>にち</rt></ruby></div><div><ruby>月<rt>げつ</rt></ruby></div><div><ruby>火<rt>か</rt></ruby></div><div><ruby>水<rt>すい</rt></ruby></div><div><ruby>木<rt>もく</rt></ruby></div><div><ruby>金<rt>きん</rt></ruby></div><div><ruby>土<rt>ど</rt></ruby></div>
-            </div>
-            <div class="calendar-grid">
-                ${calendarHtml}
-            </div>
-        </div>
-
-        <h3 style="margin-top: 2rem; margin-bottom: 0.5rem;"><ruby>六月<rt>ろくがつ</rt></ruby></h3>
+        <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;"><ruby>六月<rt>ろくがつ</rt></ruby></h3>
         <div class="calendar-card">
             <div class="calendar-header">
                 <div><ruby>日<rt>にち</rt></ruby></div><div><ruby>月<rt>げつ</rt></ruby></div><div><ruby>火<rt>か</rt></ruby></div><div><ruby>水<rt>すい</rt></ruby></div><div><ruby>木<rt>もく</rt></ruby></div><div><ruby>金<rt>きん</rt></ruby></div><div><ruby>土<rt>ど</rt></ruby></div>
             </div>
             <div class="calendar-grid">
                 ${calendarHtmlJune}
+            </div>
+        </div>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 0.5rem;"><ruby>五月<rt>ごがつ</rt></ruby></h3>
+        <div class="calendar-card">
+            <div class="calendar-header">
+                <div><ruby>日<rt>にち</rt></ruby></div><div><ruby>月<rt>げつ</rt></ruby></div><div><ruby>火<rt>か</rt></ruby></div><div><ruby>水<rt>すい</rt></ruby></div><div><ruby>木<rt>もく</rt></ruby></div><div><ruby>金<rt>きん</rt></ruby></div><div><ruby>土<rt>ど</rt></ruby></div>
+            </div>
+            <div class="calendar-grid">
+                ${calendarHtml}
             </div>
         </div>
 
