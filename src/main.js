@@ -131,7 +131,7 @@ function showMeiQuestion() {
 
   appContent.innerHTML = `
     <div class="quiz-container">
-        <div class="quiz-progress"><ruby>五月<rt>ごがつ</rt></ruby>の<ruby>銘<rt>めい</rt></ruby>クイズ: <ruby>第<rt>だい</rt></ruby> ${currentQuestionIndex + 1} <ruby>問<rt>もん</rt></ruby> / 10</div>
+        <div class="quiz-progress"><ruby>六月<rt>ろくがつ</rt></ruby>の<ruby>銘<rt>めい</rt></ruby>クイズ: <ruby>第<rt>だい</rt></ruby> ${currentQuestionIndex + 1} <ruby>問<rt>もん</rt></ruby> / 10</div>
         <div class="quiz-question" style="font-size: 2rem;">このヒントに<ruby>合<rt>あ</rt></ruby>う<ruby>銘<rt>めい</rt></ruby>は？<br><br><span style="color: var(--accent-gold);">「${mei.hint}」</span></div>
         <div class="options-grid">
             ${options.map(opt => `<button class="option-btn" data-mei="${opt.mei}"><ruby>${opt.mei}<rt>${opt.reading}</rt></ruby></button>`).join('')}
@@ -276,7 +276,7 @@ function showResult(type) {
     title = '<ruby>家元<rt>いえもと</rt></ruby>クイズ <ruby>修了<rt>しゅうりょう</rt></ruby>';
     restartFn = startQuiz;
   } else if (type === 'mei') {
-    title = '<ruby>五月<rt>ごがつ</rt></ruby>の<ruby>銘<rt>めい</rt></ruby>クイズ <ruby>修了<rt>しゅうりょう</rt></ruby>';
+    title = '<ruby>六月<rt>ろくがつ</rt></ruby>の<ruby>銘<rt>めい</rt></ruby>クイズ <ruby>修了<rt>しゅうりょう</rt></ruby>';
     restartFn = startMeiQuiz;
   } else {
     title = 'お<ruby>茶名<rt>ちゃめい</rt></ruby>クイズ <ruby>修了<rt>しゅうりょう</rt></ruby>';
