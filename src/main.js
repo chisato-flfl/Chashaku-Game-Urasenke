@@ -389,6 +389,26 @@ function showSchedule() {
     `;
   }
 
+  // July
+  const lessonDaysJuly = [4, 5, 11, 12, 23, 24, 25, 26];
+  const daysInMonthJuly = 31;
+  const startDayJuly = 3; // July 1st 2026 is Wednesday (3)
+  
+  let calendarHtmlJuly = '';
+  for (let i = 0; i < startDayJuly; i++) {
+    calendarHtmlJuly += '<div class="calendar-day empty"></div>';
+  }
+  
+  for (let day = 1; day <= daysInMonthJuly; day++) {
+    const isLesson = lessonDaysJuly.includes(day);
+    calendarHtmlJuly += `
+      <div class="calendar-day ${isLesson ? 'lesson-day' : ''}">
+        <span class="day-num">${day}</span>
+        ${isLesson ? '<span class="lesson-label">お<ruby>稽古<rt>けいこ</rt></ruby></span>' : ''}
+      </div>
+    `;
+  }
+
   // June
   const lessonDaysJune = [5, 6, 13, 19, 26, 27];
   const daysInMonthJune = 30;
@@ -414,7 +434,17 @@ function showSchedule() {
         <h2>お<ruby>稽古<rt>けいこ</rt></ruby>カレンダー</h2>
         <p><ruby>熊谷<rt>くまがい</rt></ruby><ruby>社中<rt>しゃちゅう</rt></ruby>のお<ruby>稽古<rt>けいこ</rt></ruby><ruby>日<rt>び</rt></ruby>は<ruby>以下<rt>いか</rt></ruby>の<ruby>通<rt>とお</rt></ruby>りです。</p>
         
-        <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;"><ruby>六月<rt>ろくがつ</rt></ruby></h3>
+        <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;"><ruby>七月<rt>しちがつ</rt></ruby></h3>
+        <div class="calendar-card">
+            <div class="calendar-header">
+                <div><ruby>日<rt>にち</rt></ruby></div><div><ruby>月<rt>げつ</rt></ruby></div><div><ruby>火<rt>か</rt></ruby></div><div><ruby>水<rt>すい</rt></ruby></div><div><ruby>木<rt>もく</rt></ruby></div><div><ruby>金<rt>きん</rt></ruby></div><div><ruby>土<rt>ど</rt></ruby></div>
+            </div>
+            <div class="calendar-grid">
+                ${calendarHtmlJuly}
+            </div>
+        </div>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 0.5rem;"><ruby>六月<rt>ろくがつ</rt></ruby></h3>
         <div class="calendar-card">
             <div class="calendar-header">
                 <div><ruby>日<rt>にち</rt></ruby></div><div><ruby>月<rt>げつ</rt></ruby></div><div><ruby>火<rt>か</rt></ruby></div><div><ruby>水<rt>すい</rt></ruby></div><div><ruby>木<rt>もく</rt></ruby></div><div><ruby>金<rt>きん</rt></ruby></div><div><ruby>土<rt>ど</rt></ruby></div>
