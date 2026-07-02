@@ -390,7 +390,7 @@ function showSchedule() {
   }
 
   // July
-  const lessonDaysJuly = [4, 5, 11, 12, 23, 24, 25, 26];
+  const lessonDaysJuly = [3, 4, 10, 11, 24, 25];
   const daysInMonthJuly = 31;
   const startDayJuly = 3; // July 1st 2026 is Wednesday (3)
   
